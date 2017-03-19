@@ -1,0 +1,59 @@
+#include <iostream>
+
+#include <string>
+
+using namespace std;
+
+class Person
+{
+protected:
+    string name;
+    int age;
+public:
+    Person(string ntemp,int atemp):name(ntemp),age(atemp)
+    {
+        cout<<"A person "<<name<<" whose age is "<<age<<" is created."<<endl;
+    }
+    ~Person()
+    {
+        cout<<"A person "<<name<<" whose age is "<<age<<" is erased."<<endl;
+    }
+    void show()
+    {
+        cout<<"Name is "<<name<<" and age is "<<age<<"."<<endl;
+    }
+};
+
+class Student:public Person
+{
+private:
+    int grade;
+public:
+    Student(string ntemp,int atemp,int gtemp):Person(ntemp,atemp),grade(gtemp)
+    {
+        cout<<"A student whose grade is "<<grade<<" is created."<<endl;
+    }
+    ~Student()
+    {
+        cout<<"A student whose grade is "<<grade<<" is erased."<<endl;
+    }
+    void show()
+    {
+        cout<<"Grade is "<<grade<<"."<<endl;
+    }
+};
+
+int main()
+{
+    freopen("in.txt","r",stdin);
+    freopen("out.txt","w",stdout);
+    string n;
+    int a, g;
+    cin>>n>>a>>g;
+    Student student(n, a, g);
+    student.Person::show();
+    student.show();
+    return 0;
+}
+
+
