@@ -1,0 +1,148 @@
+#include<iostream>
+
+using namespace std;
+
+class Double {
+private:
+    int Zheng;
+    int Ling;
+public:
+    Double(int ztemp = 0, int ltemp = 0) {
+        Zheng = ztemp;
+        Ling = ltemp;
+    }
+
+    int getZheng() {
+        return Zheng;
+    }
+
+    void setZheng(int ztemp) {
+        Zheng = ztemp;
+    }
+
+    int getLing() {
+        return Ling;
+    }
+
+    void setLing(int ltemp) {
+        Ling = ltemp;
+    }
+};
+
+class DoubleArray {
+private:
+    Double *doubles;
+    int numcount;
+public:
+    DoubleArray(int *zhengs, int *lings, int numtemp) {
+        numcount = numtemp;
+        doubles = new Double[numcount];
+        for (int i = 0; i < numtemp; i++) {
+            doubles[i].setZheng(zhengs[i]);
+            doubles[i].setLing(lings[i]);
+        }
+    }
+    ~DoubleArray()
+    {
+        delete []doubles;
+    }
+
+    void show() {
+        for (int i = 0; i < numcount-1; i++) {
+            cout << doubles[i].getZheng() << '.' << doubles[i].getLing() << ' ';
+        }
+        cout << doubles[numcount-1].getZheng() << '.' << doubles[numcount-1].getLing()<<endl;
+    }
+
+    DoubleArray &sortArray(bool torf) {
+        if (torf == true) {
+            for (int i = 0; i < numcount - 1; i++)
+                for (int j = 0; j < numcount - i - 1; j++)
+                    if (doubles[j].getZheng() > doubles[j + 1].getZheng() ||
+                        (doubles[j].getZheng() == doubles[j + 1].getZheng() &&
+                         doubles[j].getLing() > doubles[j + 1].getLing())) {
+                        Double Temp;
+                        Temp = doubles[j];
+                        doubles[j] = doubles[j + 1];
+                        doubles[j + 1] = Temp;
+                    }
+        }
+        else {
+            for (int i = 0; i < numcount - 1; i++)
+                for (int j = 0; j < numcount - i - 1; j++)
+                    if (doubles[j].getZheng() < doubles[j + 1].getZheng() ||
+                        (doubles[j].getZheng() == doubles[j + 1].getZheng() &&
+                         doubles[j].getLing() < doubles[j + 1].getLing())) {
+                        Double Temp;
+                        Temp = doubles[j];
+                        doubles[j] = doubles[j + 1];
+                        doubles[j + 1] = Temp;
+                    }
+        }
+        return *this;
+    }
+
+    void insertAtPos(Double doubletemp, int position) {
+        if (position < 0 || position > numcount) {}
+        else {
+            Double *TEMP;
+            TEMP=new Double[numcount+1];
+            for(int i=0;i<position;i++)
+            {
+                TEMP[i]=doubles[i];
+            }
+            TEMP[position]=doubletemp;
+            for(int i=position+1;i<numcount+1;i++)
+            {
+                TEMP[i]=doubles[i-1];
+            }
+            doubles=new Double[numcount+1];
+            doubles=TEMP;
+            numcount++;
+        }
+    }
+    DoubleArray & deleteADouble(Double doubletemp)
+    {
+        int newcount= 0 ;
+        for (int i = 0 ; i < numcount; i++)
+        {
+            if (doubles[i].getZheng()!=doubletemp.getZheng() && doubles[i].getLing()!=doubletemp.getLing())
+            {
+                doubles[newcount].setZheng(doubles[i].getZheng());
+                doubles[newcount].setLing(doubles[i].getLing());
+                newcount++;
+            }
+        }
+        numcount = newcount;
+        return *this;
+    }
+};
+
+
+
+int main() {
+    freopen("in.txt", "r", stdin);
+    freopen("out.txt", "w", stdout);
+    Double one, two(10, 10);
+    int num, i, a, b, c, *iPart, *dPart;
+    cin >> num;
+    iPart = new int[num];
+    dPart = new int[num];
+    for (i = 0; i < num; i++) {
+        cin >> iPart[i] >> dPart[i];
+    }
+    DoubleArray test(iPart, dPart, num);
+    test.show();
+    test.sortArray(true).show();
+    test.sortArray(false).show();
+    cin >> num;
+    for (i = 0; i < num; i++) {
+        cin >> a >> b >> c;
+        test.insertAtPos(Double(a, b), c);
+    }
+    test.show();
+    test.deleteADouble(Double()).show();
+    delete[] iPart;
+    delete[] dPart;
+    return 0;
+}

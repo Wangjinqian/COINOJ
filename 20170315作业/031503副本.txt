@@ -1,0 +1,86 @@
+#include <iostream>
+
+#include <cmath>
+
+using namespace std;
+
+class Point {
+private:
+    double x;
+    double y;
+public:
+
+    Point(double xtemp, double ytemp) {
+        x = xtemp;
+        y = ytemp;
+    }
+
+    double getX() {
+        return x;
+    }
+
+    double getY() {//如果不用常量函数的话就应该这么写
+        return y;
+    }
+};
+
+class Circle {
+private:
+    Point center;
+    double r;
+public:
+    Circle(Point ctemp, double rtemp) : center(ctemp), r(rtemp) {}
+
+    int JudgeRelation(Circle ctemp) {
+        double dis = sqrt((center.getX() - ctemp.center.getX()) * (center.getX() - ctemp.center.getX()) +
+                          (center.getY() - ctemp.center.getY()) * (center.getY() - ctemp.center.getY()));
+        double rda = r + ctemp.r;
+        double rxiao = abs(r - ctemp.r);
+        if (dis > rda)
+            return 1;
+        if (dis < rxiao)
+            return 2;
+        if (dis == rda)
+            return 3;
+        if (dis == rxiao)
+            return 4;
+        if (dis > rxiao && dis < rda)
+            return 5;
+    }
+};
+
+int main() {
+    freopen("in.txt", "r", stdin);
+    freopen("out.txt", "w", stdout);
+    int cases;
+    double x, y, r;
+    cin >> cases;
+    for (int i = 0; i < cases; i++) {
+        cin >> x >> y >> r;
+        Point p1(x, y);
+        Circle c1(p1, r);
+        cin >> x >> y >> r;
+        Point p2(x, y);
+        Circle c2(p2, r);
+        switch (c1.JudgeRelation(c2)) {
+            case 1:
+                cout << "Outside" << endl;
+                break;
+            case 2:
+                cout << "Inside" << endl;
+                break;
+            case 3:
+                cout << "Externally tangent" << endl;
+                break;
+            case 4:
+                cout << "Internally tangent" << endl;
+                break;
+            case 5:
+                cout << "Intersection" << endl;
+        }
+    }
+}
+
+
+
+

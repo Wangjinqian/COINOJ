@@ -1,0 +1,34 @@
+#include <iostream>
+
+using namespace std;
+
+class Demo
+{
+private:
+    int x;
+public:
+    Demo(int xtemp=0):x(xtemp)
+    {
+        cout<<"A data "<<x<<" is created!"<<endl;
+    }
+    ~Demo()
+    {
+        cout<<"A data "<<x<<" is erased!"<<endl;
+    }
+    void show()
+    {
+        cout<<"This is data "<<x<<endl;
+    }
+};
+int main()
+{
+    Demo tmp(10), tmp2;
+    int d;
+    cin>>d;
+    Demo tmp3(d);
+
+    tmp.show();
+    tmp2.show();
+    tmp3.show();
+    return 0;
+}

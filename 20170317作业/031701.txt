@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <stdio.h>
+
+using namespace std;
+
+class Person
+{
+private:
+    string name;
+public:
+    Person(string ntemp):name(ntemp)
+    {
+        cout<<"Person "<<name<<" is created."<<endl;
+    }
+    ~Person()
+    {
+        cout<<"Person "<<name<<" is erased."<<endl;
+    }
+    string getName()
+    {
+        return name;
+    }
+};
+class Student:public Person
+{
+private:
+    int serial;
+public:
+    Student(string ntemp,int stemp):Person(ntemp),serial(stemp)
+    {
+        cout<<"Student "<<ntemp<<" with id "<<serial<<" is created."<<endl;
+    }
+    ~Student()
+    {
+        cout<<"Student "<<getName()<<" with id "<<serial<<" is erased."<<endl;
+    }
+};
+class Teacher:public Person
+{
+private:
+    string pos;
+public:
+    Teacher(string ntemp,string ptemp):Person(ntemp),pos(ptemp)
+    {
+        cout<<"Teacher "<<ntemp<<" with position "<<pos<<" is created."<<endl;
+    }
+    ~Teacher()
+    {
+        cout<<"Teacher "<<getName()<<" with position "<<pos<<" is erased."<<endl;
+    }
+};
+class Course
+{
+private:
+    Teacher oneteacher;
+    Student onestudent;
+    string coursename;
+public:
+    Course(string s1,string s2,string s3,string s4,int i):oneteacher(s2,s3),onestudent(s2,i)
+    {
+        coursename=s4;
+        cout<<"Course "<<coursename<<" is created."<<endl;
+    }
+    ~Course()
+    {
+        cout<<"Course "<<coursename<<" is erased."<<endl;
+    }
+
+};
+int main()
+{
+    freopen("in.txt","r",stdin);
+    freopen("out.txt","w",stdout);
+    string s1, s2, s3, s4;
+    int i;
+    cin>>s1>>s2>>s3>>s4>>i;
+    Person person1(s1), person2(s2);
+    Teacher teacher(s1, s3);
+    Student student(s2, i);
+    Course course(s1, s2, s3, s4, i);
+    return 0;
+}

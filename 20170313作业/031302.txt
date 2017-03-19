@@ -1,0 +1,104 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+class Time {
+private:
+    int hourx;
+    int minutex;
+    int secondx;
+public:
+    Time(int htemp = 0, int mtemp = 0, int stemp = 0) {
+        hourx = htemp;
+        minutex = mtemp;
+        secondx = stemp;
+    }
+
+    Time(const Time &ttemp) {
+        hourx = ttemp.hourx;
+        minutex = ttemp.minutex;
+        secondx = ttemp.secondx;
+//        cout << "There was a call to the copy constructor : " << hour << "," << minute << "," << second << endl;
+    }
+
+    Time getTime() {
+        return *this;
+    }
+
+    Time &setTime(int htemp, int mtemp, int stemp) {
+        hourx = htemp;
+        minutex = mtemp;
+        secondx = stemp;
+        return *this;
+    }
+
+    Time &setTime(const Time &ttemp) {
+        hourx = ttemp.hourx;
+        minutex = ttemp.minutex;
+        secondx = ttemp.secondx;
+        return *this;
+    }
+
+    void showTime() {
+        if (hourx < 24 && hourx >= 0 && minutex < 60 && minutex >= 0 && secondx >= 0 && secondx < 60)
+            cout << setw(2) << setfill('0') << hourx << ":" << setw(2) << setfill('0') << minutex << ":" << setw(2)
+                 << setfill('0') << secondx << endl;
+        else
+            cout << "Time error" << endl;
+    }
+
+    void hour(int htemp) {
+        hourx = htemp;
+    }
+
+    void minute(int mtemp) {
+        minutex = mtemp;
+    }
+
+    void second(int stemp) {
+        secondx = stemp;
+    }
+
+    Time inputTime() {
+        cin >> hourx >> minutex >> secondx;
+        return *this;
+    }
+
+
+};
+
+
+int main()
+{
+    Time t;
+    int cases;
+    cin>>cases;
+    for(int i = 1; i <= cases; ++i)
+    {
+        if(i % 4 == 0)
+        {
+            int hour, minute, second;
+            cin>>hour>>minute>>second;
+            Time tt(hour, minute, second);
+            tt.showTime();
+        }
+        if(i % 4 == 1)
+        {
+            int hour, minute, second;
+            cin>>hour>>minute>>second;
+            t.setTime(hour, minute, second).showTime();
+        }
+        if(i % 4 == 2)
+            t.inputTime().showTime();
+        if(i % 4 == 3)
+        {
+            int hour, minute, second;
+            cin>>hour>>minute>>second;
+            t.hour(hour);
+            t.minute(minute);
+            t.second(second);
+            t.showTime();
+        }
+    }
+}
