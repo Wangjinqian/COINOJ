@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+class STR {
+private:
+    char *x;
+public:
+    STR() {
+        x = "\0";
+    }
+
+    STR(char *xtemp) : x(xtemp) {
+
+    }
+
+    int length() {
+        for (int i = 0; i < 100001; i++) {
+            if (x[i] == '\0') { return i; }
+        }
+    }
+
+    void putline() {
+        puts(x);
+    }
+};
+
+int main() {
+    freopen("in.txt", "r", stdin);
+    freopen("out.txt", "w", stdout);
+    STR e;
+    STR h("Hello World!");
+    char s[100001];
+    cout << e.length() << " ";
+    e.putline();
+    cout << h.length() << " ";
+    h.putline();
+    while (gets(s) != NULL) {
+        STR str(s);
+        cout << str.length() << " ";
+        str.putline();
+    }
+}
