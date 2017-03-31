@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+
+    vector<char> input;
+    char temp;
+    while(cin>>temp)
+        input.push_back(temp);
+        int flag=0;
+    while(!input.empty())
+    {
+       if(input.front()!=input.back())
+            {
+                flag=1;
+                break;
+            }
+            while(!input.empty())
+            input.erase(input.begin());
+            while(!input.empty())
+            input.pop_back();
+    }
+    if(flag==0)
+        cout<<"YES"<<endl;
+    else
+        cout<<"NO"<<endl;
+    return 0;
+}
